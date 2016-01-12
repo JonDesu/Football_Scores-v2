@@ -44,9 +44,10 @@ public class AccountUtils {
 
         return newAccount;
     }
-
-    public static boolean isSyncing() {
+    /*
+        public static boolean isSyncing() {
         return ContentResolver.isSyncActive(getAccount(), AUTHORITY);
     }
+     */
 
 }

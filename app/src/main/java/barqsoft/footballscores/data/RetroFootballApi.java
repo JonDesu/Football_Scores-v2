@@ -2,7 +2,7 @@ package barqsoft.footballscores.data;
 
 import java.io.IOException;
 
-import barqsoft.footballscores.model.GetTeamInformationResponse;
+import barqsoft.footballscores.model.TeamInfoResponse;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -11,29 +11,28 @@ import retrofit.http.Header;
 import retrofit.http.Path;
 
 
-public class FootballDataService {
+public class RetroFootballApi {
 
     FootballDataApi mApi;
 
     private interface FootballDataApi {
         @GET("/v1/teams/{team_id}")
-        Call<GetTeamInformationResponse> getTeamInformation(
+        Call<TeamInfoResponse> getTeamInformation(
                 @Header("X-Auth-Token") String apiKey,
                 @Path("team_id") String teamId
         );
     }
 
-    public FootballDataService() {
+    public RetroFootballApi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.football-data.org")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-
         mApi = retrofit.create(FootballDataApi.class);
     }
 
-    public GetTeamInformationResponse getTeamInformation(String apiKey, String teamId) throws IOException {
+    public TeamInfoResponse getTeamInformation(String apiKey, String teamId) throws IOException {
         return mApi.getTeamInformation(apiKey, teamId).execute().body();
     }
 

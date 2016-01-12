@@ -1,6 +1,6 @@
 package barqsoft.footballscores.model;
 
-public class GetTeamInformationResponse {
+public class TeamInfoResponse {
 
     public String name;
     public String crestUrl;

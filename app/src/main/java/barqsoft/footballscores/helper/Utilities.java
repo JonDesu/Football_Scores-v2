@@ -1,9 +1,10 @@
 package barqsoft.footballscores.helper;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
-import android.util.Log;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -21,10 +22,9 @@ import org.joda.time.format.DateTimeFormatter;
 import java.io.InputStream;
 
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.data.FootballScoresProvider;
+import barqsoft.footballscores.model.DatabaseContract;
 
-/**
- * Created by yehya khaled on 3/3/2015.
- */
 public class Utilities {
     public static final String LOG_TAG = Utilities.class.getSimpleName();
 
@@ -74,7 +74,6 @@ public class Utilities {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 
         String dateForQueryFormat = fmt.print(localDate);
-        Log.d(LOG_TAG, "Date for fragment: " + dateForQueryFormat);
 
         return dateForQueryFormat;
     }
@@ -89,5 +88,27 @@ public class Utilities {
                 .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
                 .decoder(new SvgDecoder())
                 .listener(new SvgSoftwareLayerSetter<Uri>());
+    }
+
+    public static void saveAsFixture(
+            ContentResolver contentResolver, String id, String date, String time,
+            String homeTeamId, String homeTeamName, String homeTeamGoals,
+            String awayTeamId, String awayTeamName, String awayTeamGoals, String leagueId, String matchDay) {
+
+        ContentValues fixtureValues = new ContentValues();
+        fixtureValues.put(DatabaseContract.FixturesTable.MATCH_ID, id);
+        fixtureValues.put(DatabaseContract.FixturesTable.DATE_COL, date);
+        fixtureValues.put(DatabaseContract.FixturesTable.TIME_COL, time);
+        fixtureValues.put(DatabaseContract.FixturesTable.HOME_ID_COL, homeTeamId);
+        fixtureValues.put(DatabaseContract.FixturesTable.HOME_NAME_COL, homeTeamName);
+        fixtureValues.put(DatabaseContract.FixturesTable.HOME_GOALS_COL, homeTeamGoals);
+        fixtureValues.put(DatabaseContract.FixturesTable.AWAY_ID_COL, awayTeamId);
+        fixtureValues.put(DatabaseContract.FixturesTable.AWAY_NAME_COL, awayTeamName);
+        fixtureValues.put(DatabaseContract.FixturesTable.AWAY_GOALS_COL, awayTeamGoals);
+        fixtureValues.put(DatabaseContract.FixturesTable.LEAGUE_COL, leagueId);
+        fixtureValues.put(DatabaseContract.FixturesTable.MATCH_DAY, matchDay);
+
+        contentResolver.insert(FootballScoresProvider.FIXTURES_URI, fixtureValues);
+
     }
 }

@@ -29,9 +29,8 @@ import java.util.Vector;
 
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.helper.Utilities;
-import barqsoft.footballscores.model.GetTeamInformationResponse;
+import barqsoft.footballscores.model.TeamInfoResponse;
 import barqsoft.footballscores.model.DatabaseContract;
-import barqsoft.footballscores.model.Fixture;
 import barqsoft.footballscores.model.Team;
 import barqsoft.footballscores.helper.AccountUtils;
 
@@ -183,7 +182,6 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
         final String AWAY_TEAM_GOALS = "goalsAwayTeam";
         final String MATCH_DAY = "matchday";
 
-
         //Match data
         String match_id = null;
         String match_day = null;
@@ -282,7 +280,7 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
                         Team.save(contentResolver, awayId, awayName, "");
 
                     //Save fixture
-                    Fixture.masterSave(
+                    Utilities.saveAsFixture(
                             contentResolver, match_id, mDate, mTime,
                             homeId, homeName, homeGoals, awayId,
                             awayName, awayGoals, League, match_day
@@ -300,7 +298,8 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     public void getTeamsCrestsUrls() {
-        Cursor cursor = getContext().getContentResolver().query(
+
+        Cursor teamsCursor = getContext().getContentResolver().query(
                 FootballScoresProvider.TEAMS_URI,
                 null,
                 DatabaseContract.TeamsTable.TEAM_CREST_URL + " = '' ",
@@ -308,26 +307,26 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
                 null
         );
 
-        if(cursor == null)
+        if(teamsCursor == null)
             return;
 
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            Team team = Team.fromCursor(cursor);
+        teamsCursor.moveToFirst();
+        while(!teamsCursor.isAfterLast()) {
+            Team team = Team.fromCursor(teamsCursor);
 
             try {
-                GetTeamInformationResponse response = new FootballDataService().getTeamInformation(mApiKey, team.id);
-                if(response != null && response.crestUrl != null && response.crestUrl.length() > 0) {
-                    Team.save(getContext().getContentResolver(), team.id, team.name, response.crestUrl);
+                TeamInfoResponse teamInfoResponse = new RetroFootballApi().getTeamInformation(mApiKey, team.id);
+                if(teamInfoResponse != null && teamInfoResponse.crestUrl != null && teamInfoResponse.crestUrl.length() > 0) {
+                    Team.save(getContext().getContentResolver(), team.id, team.name, teamInfoResponse.crestUrl);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, e.getMessage());
             }
 
-            cursor.moveToNext();
+            teamsCursor.moveToNext();
         }
 
-        cursor.close();
+        teamsCursor.close();
     }
 
     public static void syncImmediately(Context context) {

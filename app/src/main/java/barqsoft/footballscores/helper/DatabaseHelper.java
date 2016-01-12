@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         //Fixtures
-        final String createFixturesTable = "CREATE TABLE " + DatabaseContract.FIXTURES_TABLE + " ("
+        final String makeFixtures = "CREATE TABLE " + DatabaseContract.FIXTURES_TABLE + " ("
                 + FixturesTable._ID + " INTEGER PRIMARY KEY,"
                 + FixturesTable.DATE_COL + " TEXT NOT NULL,"
                 + FixturesTable.TIME_COL + " INTEGER NOT NULL,"
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " );";
 
         //Teams
-        final String createTeamsTable = "CREATE TABLE " + DatabaseContract.TEAMS_TABLE + " ("
+        final String makeTeams = "CREATE TABLE " + DatabaseContract.TEAMS_TABLE + " ("
                 + TeamsTable._ID + " INTEGER PRIMARY KEY,"
                 + TeamsTable.TEAM_ID + " TEXT NOT NULL,"
                 + TeamsTable.TEAM_NAME + " TEXT NOT NULL,"
@@ -50,8 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " );";
 
 
-        db.execSQL(createTeamsTable);
-        db.execSQL(createFixturesTable);
+        db.execSQL(makeTeams);
+        db.execSQL(makeFixtures);
     }
 
     @Override
