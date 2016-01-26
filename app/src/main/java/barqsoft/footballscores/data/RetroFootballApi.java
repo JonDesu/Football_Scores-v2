@@ -10,7 +10,6 @@ import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Path;
 
-
 public class RetroFootballApi {
 
     FootballDataApi mApi;

@@ -7,9 +7,6 @@ import android.support.annotation.Nullable;
 
 import barqsoft.footballscores.helper.ScoresAuthenticator;
 
-/**
- * Created by Andrés on 9/11/15.
- */
 public class ScoresAuthenticatorService extends Service {
 
     ScoresAuthenticator mAuthenticator;

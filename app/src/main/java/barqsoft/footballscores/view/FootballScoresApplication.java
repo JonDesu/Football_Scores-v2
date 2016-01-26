@@ -8,7 +8,10 @@ public class FootballScoresApplication extends Application{
 
     @Override
     public void onCreate() {
+
         super.onCreate();
+
+        //https://github.com/dlew/joda-time-android
         JodaTimeAndroid.init(this);
     }
 

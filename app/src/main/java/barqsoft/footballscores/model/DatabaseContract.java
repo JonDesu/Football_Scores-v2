@@ -3,9 +3,6 @@ package barqsoft.footballscores.model;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/**
- * Created by yehya khaled on 2/25/2015.
- */
 public class DatabaseContract {
 
     //Tables
@@ -25,8 +22,6 @@ public class DatabaseContract {
     public static final String CONTENT_AUTHORITY = "barqsoft.footballscores";
     public static Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-
-    //Tables definitions
     //Fixtures
     public static final class FixturesTable implements BaseColumns {
 
@@ -55,8 +50,6 @@ public class DatabaseContract {
 
     }
 
-
-    //Views definitions
     //FixturesAndTeams
     public static final class FixturesAndTeamsView {
 
@@ -65,7 +58,6 @@ public class DatabaseContract {
         public static final String HOME_TEAM_ALIAS = "home";
         public static final String AWAY_TEAM_ALIAS = "away";
 
-        //Columns
         //Fixture
         public static final String FIXTURE_ID = FIXTURE_ALIAS + "." + FixturesTable._ID;
         public static final String FIXTURE_MATCH_ID = FIXTURE_ALIAS + "." + FixturesTable.MATCH_ID;

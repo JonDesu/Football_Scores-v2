@@ -30,15 +30,12 @@ public class FixturesFragment extends Fragment
 
     public static final String LOG_TAG = FixturesFragment.class.getSimpleName();
 
-    //Constants
     private static final String ARGS_DATE_MILLIS = "date_millis";
 
-    //Variables
     public long mDateMillis;
     public FixturesCursorAdapter mAdapter;
     public static final int LOADER_ID = 2000;
 
-    //Controls
     @Bind(R.id.progress_bar) ProgressBar mProgressBarView;
     @Bind(R.id.list) ListView mListView;
     @Bind(R.id.error_view) LinearLayout mErrorView;
@@ -46,9 +43,6 @@ public class FixturesFragment extends Fragment
     @Bind(R.id.error_message) TextView mErrorMessage;
 
 
-    /**
-     * Constructors and factories
-     */
     public static FixturesFragment newInstance(long dateMillis) {
         FixturesFragment fragment = new FixturesFragment();
         Bundle args = new Bundle();
@@ -60,10 +54,6 @@ public class FixturesFragment extends Fragment
 
     public FixturesFragment() {}
 
-
-    /**
-     * Lifecycle methods
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +74,6 @@ public class FixturesFragment extends Fragment
 
         return rootView;
     }
-
-
 
 
     /**
@@ -134,9 +122,7 @@ public class FixturesFragment extends Fragment
     }
 
 
-    /**
-     * Item click callbacks
-     */
+    // Item click calback
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         FixtureAndTeam fixtureAndTeam = mAdapter.getItem(position);
@@ -144,7 +130,7 @@ public class FixturesFragment extends Fragment
         if(fixtureAndTeam == null)
             return;
 
-        String FOOTBALL_SCORES_HASHTAG = "#Football_Scores";
+        String FOOTBALL_SCORES_HASHTAG = "#FootyScores";
 
         String shareText =
                 fixtureAndTeam.homeTeamName + " " +
@@ -155,6 +141,6 @@ public class FixturesFragment extends Fragment
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-        getContext().startActivity(Intent.createChooser(shareIntent, "Compartir"));
+        getContext().startActivity(Intent.createChooser(shareIntent, "Share this score"));
     }
 }

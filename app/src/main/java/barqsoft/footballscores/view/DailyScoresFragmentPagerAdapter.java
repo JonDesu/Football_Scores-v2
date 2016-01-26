@@ -12,12 +12,10 @@ import barqsoft.footballscores.R;
 
 public class DailyScoresFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
-    //Constants
     public static final String LOG_TAG = DailyScoresFragmentPagerAdapter.class.getSimpleName();
     public static final int NUM_PAGES = 5;
     public static final boolean DEBUG = true;
 
-    //Variables
     Context mContext;
     LocalDate mLocalDate;
 

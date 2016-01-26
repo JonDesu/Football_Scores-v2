@@ -4,14 +4,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.google.gson.Gson;
-
 import barqsoft.footballscores.data.FootballScoresProvider;
 
-
-/**
- * Created by asantibanez on 9/18/15.
- */
 public class Team {
 
     public String id;
@@ -20,14 +14,6 @@ public class Team {
 
     private Team() {
         id = name = crestUrl = "";
-    }
-
-    public boolean hasCrestUrl() {
-        return crestUrl.length() > 0;
-    }
-
-    public String toJson() {
-        return new Gson().toJson(this);
     }
 
     public static Team withId(ContentResolver contentResolver, String id) {

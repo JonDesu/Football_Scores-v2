@@ -34,9 +34,6 @@ import barqsoft.footballscores.model.DatabaseContract;
 import barqsoft.footballscores.model.Team;
 import barqsoft.footballscores.helper.AccountUtils;
 
-/**
- * Created by Andrés on 9/11/15.
- */
 public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static final String LOG_TAG = ScoresSyncAdapter.class.getSimpleName();
@@ -55,7 +52,7 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
         if(DEBUG)
             Log.d(LOG_TAG, "Api Key: " + mApiKey);
 
-        //Get next 3 days data including today
+        //Get today +2
         getData("n3");
 
         //Get previous 2 days data
@@ -183,19 +180,19 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
         final String MATCH_DAY = "matchday";
 
         //Match data
-        String match_id = null;
-        String match_day = null;
-        String League = null;
-        String mDate = null;
-        String mTime = null;
+        String match_id;
+        String match_day;
+        String League;
+        String mDate;
+        String mTime;
         //Home team data
-        String homeId = null;
-        String homeName = null;
-        String homeGoals = null;
+        String homeId;
+        String homeName;
+        String homeGoals;
         //Away tema data
-        String awayId = null;
-        String awayName = null;
-        String awayGoals = null;
+        String awayId;
+        String awayName;
+        String awayGoals;
 
         try {
             JSONArray matches = new JSONObject(JSONdata).getJSONArray(FIXTURES_OBJECT);
@@ -255,20 +252,17 @@ public class ScoresSyncAdapter extends AbstractThreadedSyncAdapter {
                         Log.e(LOG_TAG,e.getMessage());
                     }
 
-                    //Home team
                     homeId = match_data.getJSONObject(LINKS_OBJECT).getJSONObject(HOME_TEAM_OBJECT).getString("href").replace(HOME_TEAM_LINK, "");
                     homeName = match_data.getString(HOME_TEAM_NAME);
                     homeGoals = match_data.getJSONObject(RESULT).getString(HOME_TEAM_GOALS);
-                    //Away team
                     awayId = match_data.getJSONObject(LINKS_OBJECT).getJSONObject(AWAY_TEAM_OBJECT).getString("href").replace(AWAY_TEAM_LINK, "");
                     awayName = match_data.getString(AWAY_TEAM_NAME);
                     awayGoals = match_data.getJSONObject(RESULT).getString(AWAY_TEAM_GOALS);
-                    //Match
                     match_day = match_data.getString(MATCH_DAY);
 
-                    //Save teams if required
                     Team team;
                     ContentResolver contentResolver = getContext().getContentResolver();
+
                     //Home team
                     team = Team.withId(contentResolver, homeId);
                     if(team == null)

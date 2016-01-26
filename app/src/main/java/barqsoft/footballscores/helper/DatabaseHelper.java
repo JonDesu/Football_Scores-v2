@@ -8,9 +8,6 @@ import barqsoft.footballscores.model.DatabaseContract;
 import barqsoft.footballscores.model.DatabaseContract.FixturesTable;
 import barqsoft.footballscores.model.DatabaseContract.TeamsTable;
 
-/**
- * Created by yehya khaled on 2/25/2015.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "football_scores.db";

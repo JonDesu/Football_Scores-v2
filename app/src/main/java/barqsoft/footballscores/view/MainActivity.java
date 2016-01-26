@@ -21,11 +21,9 @@ public class MainActivity extends AppCompatActivity
     public static String LOG_TAG = MainActivity.class.getSimpleName();
     public static final boolean DEBUG = true;
 
-    //Variables
     Account mAccount;
     DailyScoresFragmentPagerAdapter mAdapter;
 
-    //Controls
     @Bind(R.id.toolbar) Toolbar mToolbarView;
     @Bind(R.id.tabs) TabLayout mTabs;
     @Bind(R.id.pager) ViewPager mPager;
@@ -45,10 +43,9 @@ public class MainActivity extends AppCompatActivity
         mTabs.setupWithViewPager(mPager);
 
         if(savedInstanceState == null) {
-            //Get Today's fixtures
+
             mTabs.getTabAt(2).select();
 
-            //Request sync
             ScoresSyncAdapter.syncImmediately(this);
         }
 

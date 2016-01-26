@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -14,14 +13,11 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.data.FootballScoresProvider;
 import barqsoft.footballscores.helper.Utilities;
 import barqsoft.footballscores.model.DatabaseContract;
 import barqsoft.footballscores.model.FixtureAndTeam;
-import barqsoft.footballscores.data.FootballScoresProvider;
 
-/**
- * Created by Andrés on 9/22/15.
- */
 public class WidgetService extends RemoteViewsService {
 
     @Override
@@ -53,7 +49,7 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
 
         //Get matches for today
         long todayMillis = new LocalDate().toDateTimeAtStartOfDay().getMillis();
-        Log.d(LOG_TAG, "Widget loading matches for today");
+
         Cursor cursor = mContentResolver.query(
                 FootballScoresProvider.FIXTURES_AND_TEAMS_URI,
                 DatabaseContract.FixturesAndTeamsView.projection,
@@ -64,7 +60,8 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
 
         //Check if matches for day
         if(cursor != null && cursor.getCount() > 0) {
-            Log.d(LOG_TAG, "Fixtures found: " + cursor.getCount());
+
+            //Log.d(LOG_TAG, "Fixtures found: " + cursor.getCount());
 
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
@@ -73,6 +70,7 @@ class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
 
+        cursor.close();
     }
 
     @Override

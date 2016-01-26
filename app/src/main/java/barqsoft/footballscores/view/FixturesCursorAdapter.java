@@ -18,9 +18,6 @@ import barqsoft.footballscores.model.FixtureAndTeam;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by yehya khaled on 2/26/2015.
- */
 public class FixturesCursorAdapter extends CursorAdapter {
 
     public static final String LOG_TAG = FixturesCursorAdapter.class.getSimpleName();
@@ -54,13 +51,10 @@ public class FixturesCursorAdapter extends CursorAdapter {
 
         FixtureAndTeam fixtureAndTeam = FixtureAndTeam.fromCursor(cursor);
 
-        //Match data
         String leagueAndMatchDay = Utilities.getLeague(context, fixtureAndTeam.leagueId) + "\n" + context.getString(R.string.match_day) + ": " + fixtureAndTeam.matchDay;
         mHolder.leagueAndMatchDay.setText(leagueAndMatchDay);
         mHolder.matchTime.setText(fixtureAndTeam.matchTime);
         mHolder.matchScore.setText(Utilities.getScores(fixtureAndTeam.homeTeamGoals, fixtureAndTeam.awayTeamGoals));
-
-        //Home team data
         mHolder.homeTeamName.setText(fixtureAndTeam.homeTeamName);
         mHolder.homeTeamCrest.setContentDescription(fixtureAndTeam.homeTeamName);
         if(fixtureAndTeam.homeCrestUrlAvailable())
@@ -90,9 +84,6 @@ public class FixturesCursorAdapter extends CursorAdapter {
 
     }
 
-    /**
-     * ViewHolder
-     */
     public static class ViewHolder {
 
         @Bind(R.id.home_team_name) TextView homeTeamName;

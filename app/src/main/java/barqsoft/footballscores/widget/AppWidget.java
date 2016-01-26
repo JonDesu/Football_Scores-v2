@@ -9,9 +9,6 @@ import android.widget.RemoteViews;
 
 import barqsoft.footballscores.R;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class AppWidget extends AppWidgetProvider {
 
     @Override

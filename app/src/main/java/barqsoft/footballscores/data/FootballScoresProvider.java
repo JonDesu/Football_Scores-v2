@@ -21,17 +21,14 @@ public class FootballScoresProvider extends ContentProvider {
 
     private DatabaseHelper mDatabaseHelper;
 
-    //Uris
     public static final Uri TEAMS_URI = DatabaseContract.BASE_CONTENT_URI.buildUpon().appendPath("teams").build();
     public static final Uri FIXTURES_URI = DatabaseContract.BASE_CONTENT_URI.buildUpon().appendPath("fixtures").build();
     public static final Uri FIXTURES_AND_TEAMS_URI = DatabaseContract.BASE_CONTENT_URI.buildUpon().appendPath("fixtures_teams").build();
 
-    //Uri codes
     private static final int TEAMS_URI_CODE = 100;
     private static final int FIXTURES_URI_CODE = 101;
     private static final int FIXTURES_AND_TEAMS_URI_CODE = 102;
 
-    //Uri matcher
     private UriMatcher mUriMatcher = buildUriMatcher();
     static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
